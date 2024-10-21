@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QApplication, QVBoxLayout
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QApplication, QVBoxLayout
 from inst import *
 from second_win import *
 
@@ -32,4 +32,4 @@ class MainWin(QWidget):
 
 app = QApplication([])
 mw = MainWin()
-app.exec_()
+app.exec()

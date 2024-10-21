@@ -1,10 +1,15 @@
-from PyQt5.QtCore import Qt, QTimer, QTime
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QApplication, QVBoxLayout, QHBoxLayout, QLineEdit
-from PyQt5.QtGui import QFont
+from PyQt6.QtCore import Qt, QTimer, QTime
+from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QApplication, QVBoxLayout, QHBoxLayout, QLineEdit
+from PyQt6.QtGui import QFont
 from inst import *
 from final_win import *
 
 time = ""
+def check_int(text):
+    try:
+        return int(text)
+    except:
+        return False
 
 class TestWin(QWidget):
     def __init__(self):
@@ -36,21 +41,21 @@ class TestWin(QWidget):
         self.hinttest3 = QLineEdit(txt_hinttest3)
         self.sendresults = QPushButton(txt_sendresults)
         self.timer1 = QLabel(txt_timer)
-        self.l_layout.addWidget(self.name, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.hintname, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.age, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.hintage, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.test1, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.starttest1, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.hinttest1, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.test2, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.starttest2, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.test3, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.starttest3, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.hinttest2, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.hinttest3, alignment = Qt.AlignLeft)
-        self.l_layout.addWidget(self.sendresults, alignment = Qt.AlignCenter)
-        self.r_layout.addWidget(self.timer1, alignment = Qt.AlignCenter)
+        self.l_layout.addWidget(self.name, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.hintname, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.age, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.hintage, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.test1, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.starttest1, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.hinttest1, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.test2, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.starttest2, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.test3, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.starttest3, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.hinttest2, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.hinttest3, alignment = Qt.AlignmentFlag.AlignLeft)
+        self.l_layout.addWidget(self.sendresults, alignment = Qt.AlignmentFlag.AlignCenter)
+        self.r_layout.addWidget(self.timer1, alignment = Qt.AlignmentFlag.AlignCenter)
         self.h_layout.addLayout(self.l_layout)
         self.h_layout.addLayout(self.r_layout)
         self.setLayout(self.h_layout)
@@ -65,7 +70,10 @@ class TestWin(QWidget):
         global time         
         time = time.addSecs(-1)
         self.timer1.setText(time.toString("hh:mm:ss"))
-        self.timer1.setFont(QFont("Times", 36, QFont.Bold))
+        #self.timer1.setFont(QFont("Times", 36, QFont.bold))
+        font = QFont()
+        font.setPointSize(36)
+        self.timer1.setFont(font)
         self.timer1.setStyleSheet("color: rgb(0,0,0)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
@@ -81,7 +89,10 @@ class TestWin(QWidget):
         global time
         time = time.addSecs(-1)
         self.timer1.setText(time.toString("hh:mm:ss")[6:8])
-        self.timer1.setFont(QFont("Times", 36, QFont.Bold))
+        #self.timer1.setFont(QFont("Times", 36, QFont.bold))
+        font = QFont()
+        font.setPointSize(36)
+        self.timer1.setFont(font)
         self.timer1.setStyleSheet("color: rgb(0,0,0)")
         if time.toString("hh:mm:ss") == "00:00:00":
             self.timer.stop()
@@ -97,7 +108,10 @@ class TestWin(QWidget):
         global time
         time = time.addSecs(-1)
         self.timer1.setText(time.toString("hh:mm:ss"))
-        self.timer1.setFont(QFont("Times", 36, QFont.Bold))
+        #self.timer1.setFont(QFont("Times", 36, QFont.bold))
+        font = QFont()
+        font.setPointSize(36)
+        self.timer1.setFont(font)
         self.timer1.setStyleSheet("color: rgb(251, 52, 59)")
         if int(time.toString("hh:mm:ss")[6:8]) == 0:
             self.timer.stop() 
@@ -107,8 +121,16 @@ class TestWin(QWidget):
             self.timer1.setStyleSheet("color: rgb(251, 52, 59)")
 
     def next_click(self):
-        self.hide()
-        self.fw = FinalWin(self.hintname.text(), self.hintage.text(), self.hinttest1.text(), self.hinttest2.text(), self.hinttest3.text())
+        hintinfo1 = check_int(self.hintage.text())
+        hintinfo2 = check_int(self.hinttest1.text())
+        hintinfo3 = check_int(self.hinttest2.text())
+        hintinfo4 = check_int(self.hinttest3.text())
+        if hintinfo1 == False or hintinfo2 == False or hintinfo3 == False or hintinfo4 == False:
+            self.timer1.setText("Обратите внимание на правильность данных, допущена ошибка!")
+            self.timer1.setStyleSheet("color: rgb(251, 52, 59)")
+        else:
+            self.hide()
+            self.fw = FinalWin(self.hintname.text(), hintinfo1, hintinfo2, hintinfo3, hintinfo4)
 
     def connects(self):
         self.sendresults.clicked.connect(self.next_click)

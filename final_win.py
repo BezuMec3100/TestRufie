@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QApplication, QVBoxLayout, QHBoxLayout, QLineEdit
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QApplication, QVBoxLayout, QHBoxLayout, QLineEdit
 from inst import *
 
 class FinalWin(QWidget):
@@ -22,8 +22,8 @@ class FinalWin(QWidget):
         self.layout = QVBoxLayout()
         self.index = QLabel(txt_index)
         self.workheart = QLabel(txt_workheart)
-        self.layout.addWidget(self.index, alignment = Qt.AlignCenter)
-        self.layout.addWidget(self.workheart, alignment = Qt.AlignCenter)
+        self.layout.addWidget(self.index, alignment = Qt.AlignmentFlag.AlignCenter)
+        self.layout.addWidget(self.workheart, alignment = Qt.AlignmentFlag.AlignCenter)
         self.setLayout(self.layout)
     def index_Rufie(self):
         final_index = (4 * (int(self.t1)  + int(self.t2) + int(self.t3))-200)/10
